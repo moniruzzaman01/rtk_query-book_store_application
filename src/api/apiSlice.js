@@ -5,14 +5,25 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:9000",
   }),
+  tagTypes: ["books"],
   endpoints: (builder) => ({
     fetchAllBooks: builder.query({
       query: () => ({
         url: "/books",
         method: "GET",
       }),
+      providesTags: ["books"],
+    }),
+
+    addABook: builder.mutation({
+      query: (data) => ({
+        url: "/books",
+        method: "POST",
+        data,
+      }),
+      invalidatesTags: ["books"],
     }),
   }),
 });
 
-export const { useFetchAllBooksQuery } = apiSlice;
+export const { useFetchAllBooksQuery, useAddABookMutation } = apiSlice;

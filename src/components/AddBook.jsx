@@ -1,10 +1,31 @@
+import { useState } from "react";
+import { useAddABookMutation } from "../api/apiSlice";
+
 export default function AddBook() {
+  const [addABooks, { isLoading, isError, isSuccess }] = useAddABookMutation();
+  const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [price, setPrice] = useState("");
+  const [featured, setFeatured] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addABooks({
+      name,
+      author,
+      thumbnail,
+      price,
+      featured,
+    });
+  };
+
   return (
     <main className="py-6 2xl:px-6">
       <div className="container">
         <div className="p-8 overflow-hidden bg-white shadow-cardShadow rounded-md max-w-xl mx-auto">
           <h4 className="mb-8 text-xl font-bold text-center">Add New Book</h4>
-          <form className="book-form">
+          <form onSubmit={handleSubmit} className="book-form">
             <div className="space-y-2">
               <label htmlFor="lws-bookName">Book Name</label>
               <input
@@ -13,6 +34,8 @@ export default function AddBook() {
                 type="text"
                 id="lws-bookName"
                 name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 
@@ -24,6 +47,8 @@ export default function AddBook() {
                 type="text"
                 id="lws-author"
                 name="author"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
               />
             </div>
 
@@ -35,6 +60,8 @@ export default function AddBook() {
                 type="text"
                 id="lws-thumbnail"
                 name="thumbnail"
+                value={thumbnail}
+                onChange={(e) => setThumbnail(e.target.value)}
               />
             </div>
 
@@ -47,6 +74,8 @@ export default function AddBook() {
                   type="number"
                   id="lws-price"
                   name="price"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
 
@@ -70,18 +99,26 @@ export default function AddBook() {
                 type="checkbox"
                 name="featured"
                 className="w-4 h-4"
+                checked={featured}
+                onChange={(e) => setFeatured(e.target.checked)}
               />
               <label htmlFor="lws-featured" className="ml-2 text-sm">
-                {" "}
-                This is a featured book{" "}
+                This is a featured book
               </label>
             </div>
 
-            <button type="submit" className="submit" id="lws-submit">
+            <button
+              disabled={isLoading}
+              type="submit"
+              className="submit"
+              id="lws-submit"
+            >
               Add Book
             </button>
           </form>
         </div>
+        {isSuccess && <div>Successfully added a book.</div>}
+        {isError && <div>Error found!!!</div>}
       </div>
     </main>
   );

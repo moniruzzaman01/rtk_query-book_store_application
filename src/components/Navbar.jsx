@@ -1,4 +1,5 @@
 import logo from "../assets/images/logo.svg";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
@@ -14,9 +15,9 @@ export default function Navbar() {
           >
             <li>Book Store</li>
           </a>
-          <a className="cursor-pointer" href="AddBook.html" id="lws-addBook">
+          <Link className="cursor-pointer" to="add-book" id="lws-addBook">
             <li>Add Book</li>
-          </a>
+          </Link>
         </ul>
 
         <form className="flex items-center">
