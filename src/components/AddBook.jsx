@@ -7,15 +7,25 @@ export default function AddBook() {
   const [author, setAuthor] = useState("");
   const [thumbnail, setThumbnail] = useState("");
   const [price, setPrice] = useState("");
+  const [rating, setRating] = useState("");
   const [featured, setFeatured] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log({
+      name,
+      author,
+      thumbnail,
+      price,
+      rating,
+      featured,
+    });
     addABooks({
       name,
       author,
       thumbnail,
       price,
+      rating: parseInt(rating),
       featured,
     });
   };
@@ -89,6 +99,8 @@ export default function AddBook() {
                   name="rating"
                   min="1"
                   max="5"
+                  value={rating}
+                  onChange={(e) => setRating(e.target.value)}
                 />
               </div>
             </div>

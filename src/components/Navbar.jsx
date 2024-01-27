@@ -8,13 +8,13 @@ export default function Navbar() {
         <img src={logo} width="150px" className="object-contain" />
 
         <ul className="hidden md:flex items-center space-x-6">
-          <a
+          <Link
             className="font-semibold cursor-pointer"
-            href="index.html"
+            to="/"
             id="lws-bookStore"
           >
             <li>Book Store</li>
-          </a>
+          </Link>
           <Link className="cursor-pointer" to="add-book" id="lws-addBook">
             <li>Add Book</li>
           </Link>

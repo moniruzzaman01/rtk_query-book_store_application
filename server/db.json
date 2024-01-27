@@ -55,10 +55,13 @@
       "id": 6
     },
     {
+      "name": "dflkjasdfklj",
+      "author": "lkfjsdflkja",
+      "thumbnail": "klfjsadlfkj",
+      "price": "23876",
+      "rating": 4,
+      "featured": false,
       "id": 7
-    },
-    {
-      "id": 8
     }
   ]
 }

@@ -15,15 +15,27 @@ export const apiSlice = createApi({
       providesTags: ["books"],
     }),
 
+    fetchABooks: builder.query({
+      query: (bookId) => ({
+        url: `/books/${bookId}`,
+        method: "GET",
+      }),
+      providesTags: (result, error, arg) => [{ type: "book", id: arg }],
+    }),
+
     addABook: builder.mutation({
       query: (data) => ({
         url: "/books",
         method: "POST",
-        data,
+        body: data,
       }),
       invalidatesTags: ["books"],
     }),
   }),
 });
 
-export const { useFetchAllBooksQuery, useAddABookMutation } = apiSlice;
+export const {
+  useFetchAllBooksQuery,
+  useAddABookMutation,
+  useFetchABooksQuery,
+} = apiSlice;
