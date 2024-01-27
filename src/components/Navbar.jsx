@@ -1,7 +1,11 @@
+import { useDispatch } from "react-redux";
 import logo from "../assets/images/logo.svg";
 import { Link } from "react-router-dom";
+import { setSearchText } from "../api/filterSlice";
 
 export default function Navbar() {
+  const dispatch = useDispatch();
+
   return (
     <nav className="py-4 2xl:px-6">
       <div className="container flex items-center justify-between">
@@ -39,6 +43,7 @@ export default function Navbar() {
               placeholder="Filter books..."
               className="search"
               id="lws-search"
+              onChange={(e) => dispatch(setSearchText(e.target.value))}
             />
           </div>
         </form>

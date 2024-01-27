@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useFetchAllBooksQuery } from "../api/apiSlice";
 import Book from "./Book";
+import { useSelector } from "react-redux";
 
 export default function Books() {
   const { data: books, isLoading, isError, error } = useFetchAllBooksQuery();
   const [isFeatured, setIsFeatured] = useState(false);
+  const { searchText } = useSelector((state) => state.filter);
 
   let content = null;
   if (isLoading) {
@@ -18,6 +20,13 @@ export default function Books() {
       .filter((book) => {
         if (isFeatured) {
           return book.featured == isFeatured && book;
+        } else {
+          return book;
+        }
+      })
+      .filter((book) => {
+        if (searchText) {
+          return book.name.toLowerCase().includes(searchText) && book;
         } else {
           return book;
         }
