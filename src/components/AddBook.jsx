@@ -12,14 +12,6 @@ export default function AddBook() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({
-      name,
-      author,
-      thumbnail,
-      price,
-      rating,
-      featured,
-    });
     addABooks({
       name,
       author,

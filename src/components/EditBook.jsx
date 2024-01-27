@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useFetchABooksQuery } from "../api/apiSlice";
+import { useEditABookMutation, useFetchABooksQuery } from "../api/apiSlice";
 import { useEffect, useState } from "react";
 
 export default function EditBook() {
@@ -9,7 +9,9 @@ export default function EditBook() {
   const [author, setAuthor] = useState("");
   const [thumbnail, setThumbnail] = useState("");
   const [price, setPrice] = useState("");
+  const [rating, setRating] = useState("");
   const [featured, setFeatured] = useState(false);
+  const [editABook, { isLoading, isError, isSuccess }] = useEditABookMutation();
 
   useEffect(() => {
     if (book) {
@@ -17,12 +19,24 @@ export default function EditBook() {
       setAuthor(book.author);
       setThumbnail(book.thumbnail);
       setPrice(book.price);
+      setRating(book.rating);
       setFeatured(book.featured);
     }
   }, [book]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    editABook({
+      bookId,
+      data: {
+        name,
+        author,
+        thumbnail,
+        price,
+        rating: parseInt(rating),
+        featured,
+      },
+    });
   };
 
   return (
@@ -94,6 +108,8 @@ export default function EditBook() {
                   name="rating"
                   min="1"
                   max="5"
+                  value={rating}
+                  onChange={(e) => setRating(e.target.value)}
                 />
               </div>
             </div>
@@ -112,11 +128,18 @@ export default function EditBook() {
               </label>
             </div>
 
-            <button type="submit" className="submit" id="lws-submit">
-              Add Book
+            <button
+              disabled={isLoading}
+              type="submit"
+              className="submit"
+              id="lws-submit"
+            >
+              Edit Book
             </button>
           </form>
         </div>
+        {isSuccess && <div>Successfully edit a book.</div>}
+        {isError && <div>Error found while editing a book data.</div>}
       </div>
     </main>
   );
