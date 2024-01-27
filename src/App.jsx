@@ -1,18 +1,11 @@
-import AddBook from "./components/AddBook";
-import Books from "./components/Books";
-import EditBook from "./components/EditBook";
+import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <div>
       <Navbar />
-
-      <Books />
-
-      <AddBook />
-
-      <EditBook />
+      <Outlet />
     </div>
   );
 }

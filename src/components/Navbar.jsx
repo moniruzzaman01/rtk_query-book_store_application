@@ -1,8 +1,10 @@
+import logo from "../assets/images/logo.svg";
+
 export default function Navbar() {
   return (
     <nav className="py-4 2xl:px-6">
       <div className="container flex items-center justify-between">
-        <img src="./images/logo.svg" width="150px" className="object-contain" />
+        <img src={logo} width="150px" className="object-contain" />
 
         <ul className="hidden md:flex items-center space-x-6">
           <a
