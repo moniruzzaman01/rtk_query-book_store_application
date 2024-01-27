@@ -1,8 +1,10 @@
 import { object } from "prop-types";
 import { Link } from "react-router-dom";
+import { useDeleteABookMutation } from "../api/apiSlice";
 
 export default function Book({ book }) {
   const { id, author, featured, name, price, rating, thumbnail } = book || {};
+  const [deleteABook, { isLoading }] = useDeleteABookMutation();
 
   return (
     <div className="book-card">
@@ -32,7 +34,11 @@ export default function Book({ book }) {
                 </svg>
               </Link>
             </button>
-            <button className="lws-deleteBook">
+            <button
+              disabled={isLoading}
+              onClick={() => deleteABook(id)}
+              className="lws-deleteBook"
+            >
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
